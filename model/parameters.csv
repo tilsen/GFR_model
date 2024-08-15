@@ -1,0 +1,15 @@
+﻿parameterName,class,replicates,deffixed,deflb,defb0,defub,description
+targ,gesture-specific,gestures,0,0,0.5,1,target for gesture (normalized units); mean/mode of the field distribution
+sigma,gesture-specific,gestures,1,0.01,0.1,1,standard deviation of field distribution for gesture (normalized units)
+ons,activationEvent-specific,activationEvents,0,0,0.1,,onset time (relative to prosodic unit) for gestural activation event
+dur,activationEvent-specific,activationEvents,0,0.05,0.2,,duration of gestural activation event (seconds)
+ramp,gesture,,0,0,0.05,0.1,on/off ramping period of gestural activation (seconds)
+gain,gesture,,0,0,100,,field activation multiplier
+targ_neut,neutral-system,utterance,1,0,0,1,mean/mode of neutral system distribution
+sigma_neut,neutral-system,utterance,1,0,0.2,1,standard deviation of field distribution for neutral system (normalized units)
+gain_neut,neutral-system,utterance,1,0,0.1,1,amplitude of neutral system activation distribution relative to gestural systems
+stiff_floor,register,utterance,1,0,500,,stiffness for floor variable
+stiff_span,register,utterance,1,0,500,,stiffness for span variable
+floor,register,units,0,0,80,,initial register floor (Hz)
+span,register,units,0,0,120,,initial register span (Hz)
+decl,register,,0,,0,,register declination (Hz/s)
