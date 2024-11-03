@@ -1,6 +1,10 @@
-function [PAR] = set_parameter(PAR,name,value)
+function [PAR] = set_parameter(PAR,name,value,field)
 
-PAR.value(strcmp(PAR.name,name)) = value;
+if nargin==3
+    field = 'value';
+end
+
+PAR.(field)(strcmp(PAR.name,name)) = value;
 
 end
 

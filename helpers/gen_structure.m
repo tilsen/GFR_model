@@ -42,6 +42,9 @@ P = struct2table(P);
 
 cols = fieldnames(data);
 
+%enforce first time=0
+data.t{1} = data.t{1}-data.t{1}(1);
+
 %prosodic units not specified
 if any(~ismember('pw_t0',cols) | ~ismember('pw_t1',cols))
     fprintf('No prosodic units specified, assuming one unit\n.');

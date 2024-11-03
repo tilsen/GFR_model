@@ -3,17 +3,17 @@ function [M] = init_model(D,P,G,A)
 %ToDo: add input parser allowing for control of the fixed parameters below
 
 %to avoid numeric precision issues in indexing time frames
-floorround = @(x)floor(1000*x)/1000;
+floorround = @(x)floor(1e5*x)/1e5;
 
 % add time vector to model;
 M.t = floorround(D.t{1}(:));
 
 % add prosodic word timepoint indices
 
+M.pw_ixs = false(length(M.t),height(P));
 for i=1:height(P)
     M.pw_ixs(M.t>=floorround(P.t0(i)) & M.t<floorround(P.t1(i)),i) = true;    
 end
-M.pw_ixs(find(M.pw_ixs(:,end),1,'last')+1,end) = true;
 
 % simulation parameters
 M.dt = M.t(2)-M.t(1);

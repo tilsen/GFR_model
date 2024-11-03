@@ -154,9 +154,14 @@ end
 
 %% text and graphics scaling
 
-def_fig_dims = [1920 1080];
-fig_dims = get(h.figh,"Position");
+switch(get(h.figh,'Units'))
+    case 'normalized'
+        def_fig_dims = [1 1];
+    case 'pixels'
+        def_fig_dims = [1920 1080];
+end
 
+fig_dims = get(h.figh,"Position");
 rescalexy = fig_dims(3:4)./def_fig_dims;
 rescale = max(rescalexy);
 
@@ -207,7 +212,7 @@ end
 if r.pword && isfield(M,'pw_t0')
     for i=1:length(M.pw_t0)
         h.pwrd(i,1) = plot(M.pw_t0(i)*[1 1],h.ax_f0.YLim,'k:','parent',h.ax_f0);
-        h.pwrd(i,2) = plot(M.pw_t1(i)*[1 1],h.ax_f0.YLim,'k:','parent',h.ax_f0);
+        %h.pwrd(i,2) = plot(M.pw_t1(i)*[1 1],h.ax_f0.YLim,'k:','parent',h.ax_f0);
     end
 end
 

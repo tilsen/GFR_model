@@ -1,4 +1,4 @@
-function [y,M] = f0mod(beta,M)
+function [varargout] = f0mod(beta,M)
 
 % setup
 Nf = M.Nf;         % number of field coordinates
@@ -143,27 +143,33 @@ T = reg_fcn(nT,x(:,2),x(:,3));
 
 %%
 
-M.x = x;
-M.v = v;
-M.rflr = rflr;
-M.rspan = rspan;
-M.F = F;
-M.nT = nT;
-M.T = T;
-M.a = A;
-M.g = G;
-M.reg_fcn = reg_fcn;
-M.dereg_fcn = dereg_fcn;
-M.reg_ons = reg_ons;
-
 %scale v to Hz:
 v(:,1) = v(:,1).*x(:,3);
 
 %output position and velocity of f0
 y = [reg_fcn(x(:,1),x(:,2),x(:,3)) v(:,1)];
 
-M.Y = y;
+varargout{1} = y;
 
+if nargout==2
+
+    M.x = x;
+    M.v = v;
+    M.rflr = rflr;
+    M.rspan = rspan;
+    M.F = F;
+    M.nT = nT;
+    M.T = T;
+    M.a = A;
+    M.g = G;
+    M.reg_fcn = reg_fcn;
+    M.dereg_fcn = dereg_fcn;
+    M.reg_ons = reg_ons;
+    M.Y = y;
+
+    varargout{2}= M;
+
+end
 %confirm that velocity is change of position:
 %vel_correct = all(abs(v(1:end-1,1)-(diff(x(:,1)).*x(1:end-1,3)/M.dt))<1e-3);
 

@@ -1,6 +1,10 @@
-function [value] = get_parameter(PAR,name)
+function [out] = get_parameter(PAR,name,field)
 
-value = PAR.value(strcmp(PAR.name,name));
+if nargin==2
+    field = 'value';
+end
+
+out = PAR.(field)(strcmp(PAR.name,name));
 
 end
 
