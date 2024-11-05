@@ -42,6 +42,14 @@ P = struct2table(P);
 
 cols = fieldnames(data);
 
+if ~iscell(data.t)
+    data.t = {data.t};
+end
+
+if ~iscell(data.y)
+    data.y = {data.y};
+end
+
 %enforce first time=0
 data.t{1} = data.t{1}-data.t{1}(1);
 

@@ -83,6 +83,13 @@ if ~ismember('pw_t0',D.Properties.VariableNames)
     D.pw_t1 = {D.t{1}(end)};
 end
 
+if ~iscell(D.t)
+    D.t = {D.t};
+end
+if ~iscell(D.y)
+    D.y = {D.y};
+end
+
 %add f0 trajectories by prosodic unit
 for i=1:length(D.pw_t0{1})
     if i<length(D.pw_t0{1})

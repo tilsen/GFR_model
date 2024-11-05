@@ -30,6 +30,10 @@ A = M.A;
 G = M.G;
 P = M.P;
 
+if ~iscell(D.y)
+    D.y = {D.y};
+end
+
 empirical_trajectory = length(D.y{1})==length(M.t);
 
 r = p.Results;

@@ -1,6 +1,7 @@
-function [M] = ineq_constraints(M,constraint,value)
+function [M] = ineq_constraints(M,constraint,value,varargin)
 
-p = inputParser;
+p = inputParser();
+p.KeepUnmatched = true;
 
 def_value = 0;
 
@@ -69,7 +70,25 @@ switch(constraint)
                     {constraint,M.BETA.name{ix_ons},'+',M.BETA.name{ix_dur},'<',M.CON.b(end)};
                 test_constraint(M.CON,M.BETA.b0);
             end
-        end        
+        end       
+    case {'floor_end'}
+        pw = varargin{1};
+        for i=1:length(pw)
+
+            floorpar = sprintf('floor_%02i',pw(i));
+            declpar = 'decl'; %ToDo: handle pwrd-specific declination
+            ix_floor = find(ismember(M.BETA.name,floorpar));
+            ix_decl = find(ismember(M.BETA.name,declpar));
+            pwrd_dur = M.P.t1(pw(i))-M.P.t0(pw(i));
+
+            M.CON.A(end+1,[ix_floor ix_decl]) = [1 pwrd_dur];
+            M.CON.b(end+1,1) = r.value;
+            M.CON.constraints{end+1} = ...
+                {constraint,M.BETA.name{ix_floor},'+',[num2str(pwrd_dur) '*' M.BETA.name{ix_decl}],'<',M.CON.b(end)};
+            test_constraint(M.CON,M.BETA.b0);
+
+        end
+
 end
 
 end

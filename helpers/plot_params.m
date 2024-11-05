@@ -44,6 +44,8 @@ B.xlim(isnan(B.xlim(:,2)),2) = B.xlim(isnan(B.xlim(:,2)),1)+1;
 
 B.xlim = B.xlim + 0.05*[-1 1].*diff(B.xlim,[],2);
 
+B.xlim(diff(B.xlim,[],2)==0,:) = B.xlim(diff(B.xlim,[],2)==0,:) + [0 1e12];
+
 tol = 1e-3;
 
 B.pinned = abs(B.value-[B.lb B.ub])<tol;

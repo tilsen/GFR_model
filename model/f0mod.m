@@ -135,7 +135,7 @@ for i=2:Nt
     
     x(i,:) = x(i-1,:) + dx*dt;
     v(i,:) = v(i-1,:) + dv*dt;
- 
+
 end
 
 %apply register
