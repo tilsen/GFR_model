@@ -23,11 +23,11 @@ B = [B(:,{'name' 'value'}); M.FIXED(:,{'name' 'value'})];
 % parameters
 beta        = B.value'; %transpose so params are columns
 Tg          = beta(contains(B.name,'targ_' + digitsPattern(1,2)));        % gestural targets
-Tneut       = beta(contains(B.name,'targ_neut'));   % neutral attractor target
+Tneut       = beta(contains(B.name,'targ_neut'));   % neutral system target
 Fgain       = beta(strcmp(B.name,'gain'));          % field gain
-Fgain_neut  = beta(strcmp(B.name,'gain_neut'));          % field gain
-K_floor     = beta(strcmp(B.name,'stiff_floor'));       % floor stiffness
-K_span      = beta(strcmp(B.name,'stiff_span'));       % span stiffness
+Fgain_neut  = beta(strcmp(B.name,'gain_neut'));     % neutral system amplitude
+K_floor     = beta(strcmp(B.name,'stiff_floor'));   % floor stiffness
+K_span      = beta(strcmp(B.name,'stiff_span'));    % span stiffness
 ramp        = beta(contains(B.name,'ramp'));        % activation ramping
 decl        = beta(contains(B.name,'decl'));        % declination rates
 flr         = beta(contains(B.name,'floor_' + digitsPattern(1,2)));       % pwrd-initial floors
@@ -39,6 +39,10 @@ sigma_neut  = beta(contains(B.name,'sigma_neut'));
 
 gaussfcn = @(mu)exp(-((mu(:)-f)./sigma(:)).^2); %for gestural systems
 gaussfcn_sd = @(mu,sd)exp(-((mu(:)-f)/sd).^2);  %for neutral system
+% Note: These Gaussian functions differ from the standard Gaussian
+% function. We rescaled the standard function so that the mode/peak comes
+% at mu(:). In the code below, the output of the gaussfcn, gaussfcn_sd is
+% multiplied to gestural activation function or neutral system amplitude.
 
 % convert to absolute onset times
 if isscalar(M.pw_t0)
@@ -86,7 +90,7 @@ for i=1:length(reg_ons_ixs)
     reg_ons(reg_ons_ixs(i),i) = true;
 end
 
-% fixed neutral attractor amplitude, target, and sigma
+% fixed neutral system amplitude, target, and sigma
 Fneut = Fgain_neut*gaussfcn_sd(Tneut,sigma_neut);
 
 % field activation function
