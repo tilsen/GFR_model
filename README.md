@@ -9,4 +9,4 @@ Optimization Toolbox,
 Global Optimization Toolbox
 
 
-Cite as: Kim, S.-E. & Tilsen, S. (xxxx) The GFR Model of F0 control. XXXX.
+Cite as: Kim, S.-E. & Tilsen, S. (2025) The Gesture-Field-Register (GFR) framework for modeling F0 control. Journal of Phonetics, 110. 101410.
